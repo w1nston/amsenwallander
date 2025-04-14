@@ -1,15 +1,18 @@
-﻿---
-import { getCollection, getEntry } from 'astro:content';
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
 
 let allRecipes = await getCollection('recipes');
 ---
 
-<h1>Recipes</h1>
+<Layout>
+    <h1>Recipes</h1>
 
-<ul>
-  {allRecipes.map((recipe) => (
-	<li>
-	  <a href={`/recipes/${recipe.slug}`}>{recipe.data.title}</a>
-	</li>
-  ))}
-</ul>
+    <ul>
+		{allRecipes.map((recipe) => (
+                <li>
+                    <a href={`/recipes/${recipe.data.slug}`}>{recipe.data.title}</a>
+                </li>
+		))}
+    </ul>
+</Layout>

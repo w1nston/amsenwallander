@@ -1,4 +1,4 @@
-﻿---
+---
 title: Vitvinssås
 slug: vitvinssas
 tags: [Sås, Tillbehör]

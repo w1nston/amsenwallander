@@ -1,4 +1,4 @@
-﻿---
+---
 title: Äppelkaka
 slug: appelkaka
 tags: [Bakverk, Efterrätt]

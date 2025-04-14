@@ -1,4 +1,4 @@
-﻿---
+---
 title: Äppelsallad
 slug: appelsallad
 tags: [Tillbehör]

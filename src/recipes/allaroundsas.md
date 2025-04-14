@@ -1,4 +1,4 @@
-﻿---
+---
 title: Allaroundsås
 slug: allaroundsas
 tags: [Sås, Basrecept]

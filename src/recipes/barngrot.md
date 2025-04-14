@@ -1,4 +1,4 @@
-﻿---
+---
 title: Barngröt
 slug: barngrot
 tags: [Frukost]

@@ -1,0 +1,33 @@
+---
+import { getEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	let allRecipes = await getCollection('recipes');
+	return allRecipes.map((recipe) => ({
+		params: { recipe: recipe.data.slug },
+	}));
+}
+
+let { recipe } = Astro.params;
+let recipeEntry = await getEntry('recipes', recipe);
+
+if (!recipeEntry) {
+    throw new Error(`Recipe not found: ${recipe}`);
+}
+
+let { Content } = await render(recipeEntry);
+---
+
+<Layout>
+    <section>
+        <h1>{recipeEntry.data.title}</h1>
+        <Content />
+    </section>
+</Layout>
+
+<style>
+    section {
+        padding: 1rem;
+    }
+</style>

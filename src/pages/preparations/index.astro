@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+let allPreparations = await getCollection('preparations');
+---
+
+<Layout>
+    <h1>Förberedelser</h1>
+
+    <ul>
+		{allPreparations.map((preparation) => (
+                <li>
+                    <a href={`/preparations/${preparation.data.slug}`}>{preparation.data.title}</a>
+                </li>
+		))}
+    </ul>
+</Layout>

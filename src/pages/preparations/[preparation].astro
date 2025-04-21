@@ -1,0 +1,33 @@
+---
+import { getEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	let allPreparations = await getCollection('preparations');
+	return allPreparations.map((preparation) => ({
+		params: { preparation: preparation.data.slug },
+	}));
+}
+
+let { preparation } = Astro.params;
+let preparationEntry = await getEntry('preparations', preparation);
+
+if (!preparationEntry) {
+	throw new Error(`Preparation not found: ${preparation}`);
+}
+
+let { Content } = await render(preparationEntry);
+---
+
+<Layout>
+    <section>
+        <h1>{preparationEntry.data.title}</h1>
+        <Content />
+    </section>
+</Layout>
+
+<style>
+    section {
+        padding: 1rem;
+    }
+</style>

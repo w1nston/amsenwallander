@@ -10,7 +10,9 @@ let allRecipes = await getCollection('recipes');
     <h1>Recipes</h1>
 
     <ul>
-      {allRecipes.map((recipe) => (
+      {allRecipes
+        .sort((a, b) => a.data.title.localeCompare(b.data.title, 'sv'))
+        .map((recipe) => (
         <li>
           <a href={`/recipes/${recipe.data.slug}`}>{recipe.data.title}</a>
         </li>
@@ -23,4 +25,13 @@ let allRecipes = await getCollection('recipes');
   section {
       padding: 1rem;
   }
+  
+  ul {
+      list-style: none;
+  }
+  
+  ul > li > a {
+      text-decoration: none;
+  }
+  
 </style>

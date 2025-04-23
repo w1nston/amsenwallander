@@ -6,13 +6,21 @@ let allRecipes = await getCollection('recipes');
 ---
 
 <Layout>
+  <section>
     <h1>Recipes</h1>
 
     <ul>
-		{allRecipes.map((recipe) => (
-                <li>
-                    <a href={`/recipes/${recipe.data.slug}`}>{recipe.data.title}</a>
-                </li>
-		))}
+      {allRecipes.map((recipe) => (
+        <li>
+          <a href={`/recipes/${recipe.data.slug}`}>{recipe.data.title}</a>
+        </li>
+      ))}
     </ul>
+  </section>
 </Layout>
+
+<style>
+  section {
+      padding: 1rem;
+  }
+</style>

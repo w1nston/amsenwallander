@@ -6,13 +6,21 @@ let allPreparations = await getCollection('preparations');
 ---
 
 <Layout>
+  <section>
     <h1>Förberedelser</h1>
 
     <ul>
-		{allPreparations.map((preparation) => (
-                <li>
-                    <a href={`/preparations/${preparation.data.slug}`}>{preparation.data.title}</a>
-                </li>
-		))}
+      {allPreparations.map((preparation) => (
+        <li>
+          <a href={`/preparations/${preparation.data.slug}`}>{preparation.data.title}</a>
+        </li>
+      ))}
     </ul>
+  </section>
 </Layout>
+
+<style>
+    section {
+        padding: 1rem;
+    }
+</style>

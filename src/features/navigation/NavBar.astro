@@ -4,6 +4,9 @@
 
 <header>
 	<nav>
+		<a href="/">
+			<img src="/icon/aw-logo.png" width="192" height="191" alt="Logo" />
+		</a>
 		<a href="/recipes">Recept</a>
         <a href="/preparations">Förberedelser</a>
 	</nav>
@@ -11,8 +14,29 @@
 
 <style>
 	header {
-		background-color: #ff6347;
-		color: #fff;
+		background-color: var(--surface-color);
+		color: var(--surface-text-color);
 		padding: 1rem;
+		box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+	}
+	
+	header > nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--spacing-md)
+	}
+	
+	header > nav > a {
+		display: flex;
+		color: var(--surface-text-color);
+		text-decoration: none;
+		font-size: 24px;
+	}
+	
+	a > img {
+		width: 48px;
+		height: 48px;
+		color: var(--surface-color);
 	}
 </style>

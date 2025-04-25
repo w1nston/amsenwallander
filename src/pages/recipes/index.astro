@@ -18,26 +18,26 @@ function alphabeticallyByTitle(a, b) {
       {allRecipes
         .sort(alphabeticallyByTitle)
         .map((recipe) => (
-        <li>
-          <RecipeCard slug={recipe.data.slug} title={recipe.data.title} />
-        </li>
-      ))}
+          <li>
+            <RecipeCard slug={recipe.data.slug} title={recipe.data.title} tags={recipe.data.tags} />
+          </li>
+        ))}
     </ul>
   </section>
 </Layout>
 
 <style>
-  section {
-      padding: 1rem;
-  }
-  
-  ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-  }
-  
-  ul > li {
-      margin: var(--spacing-md) 0;
-  }
+    section {
+        padding: 1rem;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul > li {
+        margin: var(--spacing-md) 0;
+    }
 </style>

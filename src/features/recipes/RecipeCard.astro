@@ -1,6 +1,6 @@
 ﻿---
 import FoodIcon from './FoodIcon.astro';
-let { title, slug } = Astro.props;
+let { title, slug, tags } = Astro.props;
 ---
 
 <article>
@@ -37,6 +37,10 @@ let { title, slug } = Astro.props;
       <div class="solid-line" />
     </div>
   </div>
+  <dl class="tags-list">
+    <dt>Typ av rätt:</dt>
+    <dd>{tags.join(', ')}</dd>
+  </dl>
 </article>
 
 <style>
@@ -46,12 +50,13 @@ let { title, slug } = Astro.props;
     }
 
     .background {
-        background-color: #3d9970;
+        background-color: var(--secondary-surface-color);
         padding: 1rem var(--spacing-sm);
     }
 
     a {
         text-decoration: none;
+        color: var(--secondary-surface-text-color);
         font-size: 1.625rem;
     }
 
@@ -92,7 +97,6 @@ let { title, slug } = Astro.props;
         display: flex;
         align-items: center;
         gap: var(--spacing-sm);
-        padding: var(--spacing-lg) 0 var(--spacing-md) 0;
     }
 
     .left-bottom-line {
@@ -117,5 +121,18 @@ let { title, slug } = Astro.props;
     .solid-line {
         width: 100%;
         border-bottom: var(--thick) solid var(--black);
+    }
+
+    .tags-list {
+        color: var(--secondary-surface-text-color);
+    }
+    
+    .tags-list > dt {
+        font-size: 0.625rem;
+        font-weight: 700;
+    }
+    
+    .tags-list > dd {
+        font-size: 0.875rem;
     }
 </style>

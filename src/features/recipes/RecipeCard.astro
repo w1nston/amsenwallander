@@ -1,0 +1,115 @@
+﻿---
+// import FoodIcon from './FoodIcon.Astro';
+let { title, slug } = Astro.props;
+---
+
+<article>
+  <a href={`/recipes/${slug}`}>{title}</a>
+  <hr />
+  <div class="dots-container">
+    <div class="left-dots-column">
+      <p>Ingredienser:</p>
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+    </div>
+    <div class="right-dots-column">
+      <p>Gör så här:</p>
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+      <div class="line" />
+    </div>
+  </div>
+  <div class="bottom-line">
+    <div class="left-bottom-line">
+      <div class="solid-line" />
+    </div>
+    <svg class="middle" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+      <path fill="currentColor"
+            d="M22 3L10 4.41V6h12v1H10v5h12c0 1.81-.57 3.46-1.68 4.95s-2.55 2.58-4.32 3.3V22H8v-1.75c-1.76-.72-3.21-1.82-4.32-3.3S2 13.81 2 12h3V4l17-2zM6 4.88V6h1V4.78zM6 7v5h1V7zm3 5V7H8v5zm0-6V4.55l-1 .09V6z" />
+    </svg>
+    <div class="right-bottom-line">
+      <div class="solid-line" />
+    </div>
+  </div>
+</article>
+
+<style>
+    article {
+        border: 4px solid var(--black);
+        padding: 1rem;
+    }
+
+    article > a {
+        text-decoration: none;
+        font-size: 1.625rem;
+    }
+
+    hr {
+        height: var(--thick);
+        background-color: var(--black);
+        border: none;
+    }
+
+    .dots-container {
+        display: flex;
+        width: 100%;
+        gap: var(--spacing-lg);
+    }
+
+    p {
+        font-size: 0.625rem;
+        margin: 0;
+    }
+
+    .left-dots-column {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        width: 50%;
+    }
+
+    .right-dots-column {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-md);
+        width: 50%
+    }
+
+    .bottom-line {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-lg) 0 var(--spacing-md) 0;
+    }
+
+    .left-bottom-line {
+        display: flex;
+        flex-grow: 0.5;
+    }
+
+    .right-bottom-line {
+        display: flex;
+        flex-grow: 0.5;
+    }
+    
+    .middle {
+        flex-grow: 0;
+    }
+
+    .line {
+        width: 100%;
+        border-bottom: var(--thin) dashed var(--black);
+    }
+    
+    .solid-line {
+        width: 100%;
+        border-bottom: var(--thick) solid var(--black);
+    }
+</style>

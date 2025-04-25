@@ -1,20 +1,25 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import RecipeCard from '../../features/recipes/RecipeCard.astro';
 
 let allRecipes = await getCollection('recipes');
+
+function alphabeticallyByTitle(a, b) {
+  return a.data.title.localeCompare(b.data.title, 'sv');
+}
 ---
 
 <Layout>
   <section>
-    <h1>Recipes</h1>
+    <h1>Recept</h1>
 
     <ul>
       {allRecipes
-        .sort((a, b) => a.data.title.localeCompare(b.data.title, 'sv'))
+        .sort(alphabeticallyByTitle)
         .map((recipe) => (
         <li>
-          <a href={`/recipes/${recipe.data.slug}`}>{recipe.data.title}</a>
+          <RecipeCard slug={recipe.data.slug} title={recipe.data.title} />
         </li>
       ))}
     </ul>
@@ -28,10 +33,11 @@ let allRecipes = await getCollection('recipes');
   
   ul {
       list-style: none;
+      margin: 0;
+      padding: 0;
   }
   
-  ul > li > a {
-      text-decoration: none;
+  ul > li {
+      margin: var(--spacing-md) 0;
   }
-  
 </style>

@@ -1,21 +1,50 @@
 ﻿---
 import FilterIcon from './FilterIcon.astro';
+
+const FILTER_BUTTON_ID = '';
 ---
 
 <footer>
-  <button>
+  <button id="filter-bnt">
     <FilterIcon />
   </button>
 </footer>
 
-<style>
-  footer {
-      background-color: var(--surface-color);
-      color: var(--surface-text-color);
-      height: 3.75rem;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
+<script>
+  let filterButton = document.getElementById('filter-bnt');
+  if (filterButton) {
+    filterButton.addEventListener('click', () => {
+      console.log('Herrooo');
+    });
   }
+</script>
+
+<style>
+    footer {
+        background-color: var(--surface-color);
+        color: var(--surface-text-color);
+        height: 3.75rem;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        padding: 0 1rem;
+    }
+
+    button {
+        all: unset;
+        background-color: var(--white);
+        color: var(--surface-color);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+    }
 </style>

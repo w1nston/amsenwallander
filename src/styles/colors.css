@@ -10,6 +10,7 @@
   --secondary-surface-text-color: #85144b;
   
   --black: #333;
+  --white: #fff;
 }
 
 body.dark-theme {

@@ -2,10 +2,11 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import RecipeCard from '../../features/recipes/RecipeCard.astro';
+import RecipeFooter from '../../features/recipes/RecipeFooter.astro';
 
 let allRecipes = await getCollection('recipes');
 
-function alphabeticallyByTitle(a, b) {
+function alphabeticallyByTitle(a: any, b: any) {
   return a.data.title.localeCompare(b.data.title, 'sv');
 }
 ---
@@ -13,7 +14,6 @@ function alphabeticallyByTitle(a, b) {
 <Layout>
   <section>
     <h1>Recept</h1>
-
     <ul>
       {allRecipes
         .sort(alphabeticallyByTitle)
@@ -24,11 +24,16 @@ function alphabeticallyByTitle(a, b) {
         ))}
     </ul>
   </section>
+  <RecipeFooter />
 </Layout>
 
 <style>
     section {
-        padding: 1rem;
+        padding: 1rem 1rem 3.75rem 1rem;
+    }
+    
+    h1 {
+        margin-top: 0;
     }
 
     ul {

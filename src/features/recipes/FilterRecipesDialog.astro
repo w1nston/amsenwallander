@@ -1,0 +1,26 @@
+﻿---
+let { availableTags, id, eventName } = Astro.props;
+---
+
+<dialog id={id} closedby="any">
+  <form method="dialog">
+    {availableTags.map((tag) => (
+      <button value={tag}>{tag}</button>
+    ))}
+    <button autofocus value="">Stäng</button>
+  </form>
+</dialog>
+
+<script define:vars={{ dialogId: id, eventName }}>
+  let dialogElem = document.getElementById(dialogId);
+
+  dialogElem.addEventListener('click', function handleCLick(event) {
+    let value = event.target.value;
+    let filterEvent = new CustomEvent(eventName, { detail: { value } });
+    dialogElem.dispatchEvent(filterEvent);
+  });
+
+  dialogElem.addEventListener('close', function handleClose() {
+    document.body.classList.remove('no-scroll');
+  });
+</script>

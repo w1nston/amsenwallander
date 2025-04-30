@@ -1,8 +1,18 @@
 ﻿---
 import FilterIcon from './FilterIcon.astro';
+import FilterRecipesDialog from './FilterRecipesDialog.astro';
 
-const FILTER_BUTTON_ID = '';
+let { availableTags, recipeListId } = Astro.props;
+
+const dialogId = 'filter-dialog';
+const FILTER_EVENT = 'filterEvent';
 ---
+
+<FilterRecipesDialog
+  id={dialogId}
+  availableTags={availableTags}
+  eventName={FILTER_EVENT}
+/>
 
 <footer>
   <button id="filter-bnt">
@@ -10,11 +20,40 @@ const FILTER_BUTTON_ID = '';
   </button>
 </footer>
 
-<script>
+<script define:vars={{ availableTags, dialogId, filterEvent: FILTER_EVENT, recipeListId }}>
+  let dialogElem = document.getElementById(dialogId);
+
+
   let filterButton = document.getElementById('filter-bnt');
   if (filterButton) {
     filterButton.addEventListener('click', () => {
-      console.log('Herrooo');
+      dialogElem.showModal();
+
+      document.body.classList.add('no-scroll');
+    });
+  }
+  
+  // TODO: need button next to filter to clear selected filter!
+
+  if (dialogElem) {
+    dialogElem.addEventListener(filterEvent, function handleFilter(event) {
+      let filter = event.detail.value;
+
+      let recipeListElem = document.getElementById(recipeListId);
+      if (recipeListElem) {
+        let recipes = Array.from(recipeListElem.children);
+        recipes.forEach((recipe) => {
+          let tags = recipe.dataset.tags.split(';');
+
+          if (filter === '') {
+            recipe.style.display = '';
+          } else {
+            recipe.style.display = tags.includes(filter) ? '' : 'none';
+          }
+        });
+      } else {
+        console.warn(`Could not find a recipe list with the id: ${recipeListId}!`);
+      }
     });
   }
 </script>

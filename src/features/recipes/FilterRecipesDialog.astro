@@ -4,10 +4,10 @@ let { availableTags, id, eventName } = Astro.props;
 
 <dialog id={id} closedby="any">
   <form method="dialog">
-    {availableTags.map((tag) => (
-      <button value={tag}>{tag}</button>
+    {availableTags.map((tag, index) => (
+      <button autofocus={index === 0} value={tag}>{tag}</button>
     ))}
-    <button autofocus value="">Stäng</button>
+    <button value="">Rensa filter</button>
   </form>
 </dialog>
 
@@ -24,3 +24,28 @@ let { availableTags, id, eventName } = Astro.props;
     document.body.classList.remove('no-scroll');
   });
 </script>
+
+<style>
+    dialog {
+        margin: unset;
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-self: center;
+        justify-self: center;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-sm);
+        width: 100%;
+    }
+    
+    button {
+        all: unset;
+        cursor: pointer;
+        padding: var(--spacing-lg);
+        border: var(--thin) solid var(--black);
+    }
+</style>

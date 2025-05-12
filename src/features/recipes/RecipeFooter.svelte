@@ -1,10 +1,17 @@
 ﻿<script lang="ts">
   import FilterIcon from './FilterIcon.svelte';
   import { onMount } from 'svelte';
+  import Fuse from 'fuse.js';
 
   interface $$Props {
     availableTags: string[];
     recipeListId: string;
+  }
+
+  interface SearchableItem {
+    element: HTMLLIElement;
+    title: string;
+    tags: string[];
   }
 
   export let availableTags: $$Props['availableTags'];
@@ -13,6 +20,8 @@
   let isFilterOpen = false;
   let selectedTags: Set<string> = new Set();
   let filterPanel: HTMLDivElement;
+  let searchQuery = '';
+  let fuse: Fuse<SearchableItem>;
 
   function toggleFilter() {
     isFilterOpen = !isFilterOpen;
@@ -23,7 +32,7 @@
   }
 
   function selectTag(tag: string) {
-    selectedTags.clear(); // Clear any existing selection
+    selectedTags.clear();
     selectedTags.add(tag);
     filterRecipes();
     closeFilter();
@@ -33,17 +42,59 @@
     const recipeList = document.getElementById(recipeListId);
     if (!recipeList) return;
 
-    const items = recipeList.getElementsByTagName('li');
+    const items = Array.from(recipeList.getElementsByTagName('li'));
     
-    for (const item of items) {
+    // Create searchable items array
+    const searchableItems: SearchableItem[] = items.map(item => ({
+      element: item,
+      title: item.querySelector('a')?.textContent || '',
+      tags: item.dataset.tags?.split(';') || []
+    }));
+
+    // Initialize Fuse if not already done
+    if (!fuse) {
+      fuse = new Fuse(searchableItems, {
+        keys: ['title'],
+        threshold: 0.6,
+        distance: 200,
+        includeScore: true,
+        minMatchCharLength: 1,
+        ignoreLocation: true,
+        useExtendedSearch: true,
+        shouldSort: true,
+        findAllMatches: true,
+        location: 0
+      });
+    }
+
+    // Filter items
+    items.forEach(item => {
       const itemTags = item.dataset.tags?.split(';') || [];
+      const matchesTag = selectedTags.size === 0 || itemTags.some(tag => selectedTags.has(tag));
       
-      if (selectedTags.size === 0 || itemTags.some(tag => selectedTags.has(tag))) {
+      let matchesSearch = true;
+      if (searchQuery) {
+        const searchResults = fuse.search(searchQuery);
+        matchesSearch = searchResults.some(result => result.item.element === item);
+      }
+      
+      if (matchesTag && matchesSearch) {
         item.style.display = '';
       } else {
         item.style.display = 'none';
       }
-    }
+    });
+  }
+
+  function handleSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    searchQuery = input.value.trim();
+    filterRecipes();
+  }
+
+  function clearSearch() {
+    searchQuery = '';
+    filterRecipes();
   }
 
   onMount(() => {
@@ -92,6 +143,26 @@
           aria-label="Stäng filter"
         >×</button>
       </div>
+
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <input
+            type="search"
+            placeholder="Sök recept..."
+            value={searchQuery}
+            on:input={handleSearch}
+            aria-label="Sök recept"
+          />
+          {#if searchQuery}
+            <button 
+              class="clear-search" 
+              on:click={clearSearch}
+              aria-label="Rensa sökning"
+            >×</button>
+          {/if}
+        </div>
+      </div>
+
       <div class="tags-container">
         {#each availableTags as tag}
           <button 
@@ -171,6 +242,54 @@
   .close-btn {
     font-size: 1.5rem;
     padding: 0.5rem;
+  }
+
+  .search-container {
+    margin-bottom: 1rem;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .search-container input {
+    width: 100%;
+    padding: 0.75rem;
+    padding-right: 2.5rem;
+    border: 1px solid var(--surface-color);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    background-color: var(--white);
+  }
+
+  .search-container input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+
+  .clear-search {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--surface-color);
+    font-size: 1.25rem;
+    padding: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+  }
+
+  .clear-search:hover {
+    background-color: var(--surface-color);
+    color: var(--white);
   }
 
   .tags-container {

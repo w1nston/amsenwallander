@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import RecipeCard from '../../features/recipes/RecipeCard.astro';
-import RecipeFooter from '../../features/recipes/RecipeFooter.astro';
+import RecipeFooter from '../../features/recipes/RecipeFooter.svelte';
 
 let allRecipes = await getCollection('recipes');
 
@@ -37,6 +37,7 @@ const recipeListId = 'recipe-list';
     </ul>
   </section>
   <RecipeFooter
+    client:load
     availableTags={availableTags}
     recipeListId={recipeListId}
   />

@@ -44,14 +44,12 @@
 
     const items = Array.from(recipeList.getElementsByTagName('li'));
     
-    // Create searchable items array
     const searchableItems: SearchableItem[] = items.map(item => ({
       element: item,
       title: item.querySelector('a')?.textContent || '',
       tags: item.dataset.tags?.split(';') || []
     }));
 
-    // Initialize Fuse if not already done
     if (!fuse) {
       fuse = new Fuse(searchableItems, {
         keys: ['title'],
@@ -67,7 +65,6 @@
       });
     }
 
-    // Filter items
     items.forEach(item => {
       const itemTags = item.dataset.tags?.split(';') || [];
       const matchesTag = selectedTags.size === 0 || itemTags.some(tag => selectedTags.has(tag));
@@ -98,7 +95,6 @@
   }
 
   onMount(() => {
-    // Close filter when clicking outside
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
       if (!target.closest('#filter-container') && isFilterOpen) {
@@ -106,7 +102,6 @@
       }
     });
 
-    // Handle escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && isFilterOpen) {
         closeFilter();

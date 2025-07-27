@@ -4,7 +4,7 @@ let { availableTags, id, eventName } = Astro.props;
 
 <dialog id={id} closedby="any">
   <form method="dialog">
-    {availableTags.map((tag, index) => (
+    {availableTags.map((tag: string, index: number) => (
       <button autofocus={index === 0} value={tag}>{tag}</button>
     ))}
     <button value="">Rensa filter</button>

@@ -14,13 +14,11 @@
     tags: string[];
   }
 
-  export let availableTags: $$Props['availableTags'];
-  export let recipeListId: $$Props['recipeListId'];
+  let { availableTags, recipeListId } = $props()
 
-  let isFilterOpen = false;
-  let selectedTags: Set<string> = new Set();
-  let filterPanel: HTMLDivElement;
-  let searchQuery = '';
+  let isFilterOpen = $state(false);
+  let selectedTag = $state('');
+  let searchQuery = $state('');
   let fuse: Fuse<SearchableItem>;
 
   function toggleFilter() {
@@ -32,8 +30,7 @@
   }
 
   function selectTag(tag: string) {
-    selectedTags.clear();
-    selectedTags.add(tag);
+    selectedTag = tag;
     filterRecipes();
     closeFilter();
   }
@@ -65,6 +62,7 @@
       });
     }
 
+    /*
     items.forEach(item => {
       const itemTags = item.dataset.tags?.split(';') || [];
       const matchesTag = selectedTags.size === 0 || itemTags.some(tag => selectedTags.has(tag));
@@ -81,6 +79,7 @@
         item.style.display = 'none';
       }
     });
+    */
   }
 
   function handleSearch(event: Event) {
@@ -114,7 +113,7 @@
   <footer>
     <button 
       id="filter-btn" 
-      on:click={toggleFilter}
+      onclick={toggleFilter}
       aria-expanded={isFilterOpen}
       aria-controls="filter-panel"
     >
@@ -126,7 +125,6 @@
     <div 
       id="filter-panel"
       class="filter-panel"
-      bind:this={filterPanel}
       role="dialog"
       aria-labelledby="filter-title"
     >
@@ -134,7 +132,7 @@
         <h3 id="filter-title">Filtrera på taggar</h3>
         <button 
           class="close-btn" 
-          on:click={closeFilter}
+          onclick={closeFilter}
           aria-label="Stäng filter"
         >×</button>
       </div>
@@ -145,13 +143,13 @@
             type="search"
             placeholder="Sök recept..."
             value={searchQuery}
-            on:input={handleSearch}
+            oninput={handleSearch}
             aria-label="Sök recept"
           />
           {#if searchQuery}
             <button 
               class="clear-search" 
-              on:click={clearSearch}
+              onclick={clearSearch}
               aria-label="Rensa sökning"
             >×</button>
           {/if}
@@ -162,9 +160,9 @@
         {#each availableTags as tag}
           <button 
             class="tag-btn" 
-            class:selected={selectedTags.has(tag)}
-            on:click={() => selectTag(tag)}
-            aria-pressed={selectedTags.has(tag)}
+            class:selected={selectedTag === tag}
+            onclick={() => selectTag(tag)}
+            aria-pressed={selectedTag === tag}
           >
             {tag}
           </button>

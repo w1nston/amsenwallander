@@ -109,17 +109,26 @@
   });
 </script>
 
-<div id="filter-container">
-  <footer>
-    <button 
-      id="filter-btn" 
-      onclick={toggleFilter}
-      aria-expanded={isFilterOpen}
-      aria-controls="filter-panel"
-    >
-      <FilterIcon />
-    </button>
-  </footer>
+<footer id="filter-container">
+  <div class="footer">
+    {#if selectedTag !== ''}
+      <dl>
+        <dt>Valt filter:</dt>
+        <dd>{selectedTag}</dd>
+      </dl>
+    {/if}
+    <div class="spacer"></div>
+    <div class="icon-container">
+      <button 
+        id="filter-btn" 
+        onclick={toggleFilter}
+        aria-expanded={isFilterOpen}
+        aria-controls="filter-panel"
+      >
+        <FilterIcon />
+      </button>
+    </div>
+  </div>
 
   {#if isFilterOpen}
     <div 
@@ -170,14 +179,14 @@
       </div>
     </div>
   {/if}
-</div>
+  </footer>
 
 <style>
   #filter-container {
     position: relative;
   }
 
-  footer {
+  .footer {
     background-color: var(--surface-color);
     color: var(--surface-text-color);
     height: 3.75rem;
@@ -186,13 +195,33 @@
     left: 0;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-end;
     padding: 0 1rem;
     z-index: 10;
   }
 
+  .icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .spacer {
+    display: flex;
+    flex: auto 1;
+  }
+
+  dl {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  dt, dd {
+    margin: 0;
+  }
+  
   button {
     all: unset;
     cursor: pointer;

@@ -91,6 +91,10 @@
     filterRecipes();
   }
 
+  function clearFilter() {
+    selectTag('');
+  }
+
   onMount(() => {
     document.addEventListener('click', (e) => {
       const target = e.target as HTMLElement;
@@ -114,11 +118,22 @@
         <dt>Valt filter:</dt>
         <dd>{selectedTag}</dd>
       </dl>
-    {/if}
     <div class="spacer"></div>
     <div class="icon-container">
       <button 
-        id="filter-btn" 
+        class="filter-btn" 
+        onclick={clearFilter}
+      >
+        x
+      </button>
+    </div>
+    {:else}
+      <div class="spacer"></div>
+    {/if}
+
+    <div class="icon-container">
+      <button 
+        class="filter-btn" 
         onclick={toggleFilter}
         aria-expanded={isFilterOpen}
         aria-controls="filter-panel"
@@ -202,6 +217,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding: var(--spacing-sm);
   }
 
   .spacer {
@@ -225,7 +241,7 @@
     cursor: pointer;
   }
 
-  #filter-btn {
+  .filter-btn {
     background-color: var(--white);
     color: var(--surface-color);
     display: flex;

@@ -62,10 +62,9 @@
       });
     }
 
-    /*
     items.forEach(item => {
       const itemTags = item.dataset.tags?.split(';') || [];
-      const matchesTag = selectedTags.size === 0 || itemTags.some(tag => selectedTags.has(tag));
+      const matchesTag = selectedTag === '' || itemTags.some(tag => selectedTag === tag);
       
       let matchesSearch = true;
       if (searchQuery) {
@@ -79,7 +78,6 @@
         item.style.display = 'none';
       }
     });
-    */
   }
 
   function handleSearch(event: Event) {
@@ -215,7 +213,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
   }
 
   dt, dd {

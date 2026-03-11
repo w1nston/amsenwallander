@@ -29,7 +29,7 @@ function alphabeticallyByTitle(a: any, b: any) {
       {allRecipes
         .sort(alphabeticallyByTitle)
         .map((recipe) => (
-          <li data-tags={recipe.data.tags.join(';')}>
+          <li data-tags={recipe.data.tags.join(';')} data-title={recipe.data.title.toLowerCase()}>
             <RecipeCard slug={recipe.data.slug} title={recipe.data.title} tags={recipe.data.tags} />
           </li>
         ))}

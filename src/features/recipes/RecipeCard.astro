@@ -4,11 +4,12 @@ let { title, slug, tags } = Astro.props;
 ---
 
 <article>
-  <div class="background">
-    <a href={`/recipes/${slug}`}>{title}</a>
-  </div>
-  <hr />
-  <div class="dots-container">
+  <a href={`/recipes/${slug}`}>
+    <div class="background">
+      {title}
+    </div>
+    <hr />
+    <div class="dots-container">
     <div class="left-dots-column">
       <p>Ingredienser:</p>
       <div class="line" />
@@ -37,10 +38,11 @@ let { title, slug, tags } = Astro.props;
       <div class="solid-line" />
     </div>
   </div>
-  <dl class="tags-list">
-    <dt>Typ av rätt:</dt>
-    <dd>{tags.join(', ')}</dd>
-  </dl>
+    <dl class="tags-list">
+      <dt>Typ av rätt:</dt>
+      <dd>{tags.join(', ')}</dd>
+    </dl>
+  </a>
 </article>
 
 <style>
@@ -56,6 +58,11 @@ let { title, slug, tags } = Astro.props;
 
     a {
         text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+
+    .background {
         color: var(--secondary-surface-text-color);
         font-size: 1.625rem;
     }

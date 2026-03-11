@@ -1,0 +1,120 @@
+---
+let { id, availableTags = [] } = Astro.props;
+let sortedTags = [...availableTags].sort((a: string, b: string) => a.localeCompare(b, 'sv'));
+---
+
+<dialog id={id}>
+  <div class="dialog-header">
+    <h2>Filtrera recept</h2>
+    <button class="close-button" aria-label="Stäng">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+      </svg>
+    </button>
+  </div>
+  <div class="dialog-body">
+    <div class="tags-container" id="filter-tags">
+      {sortedTags.map((tag: string) => (
+        <button class="tag-button" data-tag={tag} type="button">{tag}</button>
+      ))}
+    </div>
+    <button class="clear-button" id="clear-filters" type="button" hidden>Rensa filter</button>
+  </div>
+</dialog>
+
+<style>
+  dialog {
+    border: var(--thick) solid var(--black);
+    background-color: var(--secondary-surface-color);
+    color: var(--secondary-surface-text-color);
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: 80vh;
+    margin: auto 0 0 0;
+    border-radius: var(--spacing-md) var(--spacing-md) 0 0;
+    overflow-y: auto;
+  }
+
+  dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: var(--normal) solid var(--black);
+    position: sticky;
+    top: 0;
+    background-color: var(--secondary-surface-color);
+  }
+
+  .dialog-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .close-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary-surface-text-color);
+    padding: var(--spacing-xs);
+    border-radius: 50%;
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .dialog-body {
+    padding: var(--spacing-md);
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .tag-button {
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 48px;
+    border: var(--normal) solid var(--secondary-surface-text-color);
+    border-radius: 24px;
+    background: none;
+    color: var(--secondary-surface-text-color);
+    font-size: 0.9375rem;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s;
+  }
+
+  .tag-button[aria-pressed="true"] {
+    background-color: var(--surface-color);
+    color: var(--surface-text-color);
+    border-color: var(--surface-color);
+  }
+
+  .clear-button {
+    margin-top: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    min-height: 48px;
+    border: none;
+    background: none;
+    color: var(--secondary-surface-text-color);
+    font-size: 0.875rem;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  @media (min-width: 500px) {
+    dialog {
+      max-width: 464px;
+      margin: auto;
+      border-radius: var(--spacing-md);
+    }
+  }
+</style>

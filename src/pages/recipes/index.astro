@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import RecipeCard from '../../features/recipes/RecipeCard.astro';
-import FilterIcon from '../../features/recipes/FilterIcon.astro';
+import FilterButton from '../../features/recipes/FilterButton.astro';
 import RecipeFilterDialog from '../../features/recipes/RecipeFilterDialog.astro';
 
 let allRecipes = await getCollection('recipes');
@@ -20,15 +20,12 @@ let availableTags = Array.from(uniqueTags);
 function alphabeticallyByTitle(a: any, b: any) {
   return a.data.title.localeCompare(b.data.title, 'sv');
 }
-
-const recipeListId = 'recipe-list';
-const dialogId = 'filter-dialog';
 ---
 
 <Layout>
   <section>
     <h1>Recept</h1>
-    <ul id={recipeListId}>
+    <ul id="recipe-list">
       {allRecipes
         .sort(alphabeticallyByTitle)
         .map((recipe) => (
@@ -39,73 +36,17 @@ const dialogId = 'filter-dialog';
     </ul>
   </section>
 
-  <button class="fab" id="filter-button" aria-label="Filtrera recept">
-    <FilterIcon />
-  </button>
-
-  <RecipeFilterDialog id={dialogId} availableTags={availableTags} />
+  <FilterButton id="filter-button" />
+  <RecipeFilterDialog id="filter-dialog" availableTags={availableTags} />
 </Layout>
 
 <script>
-  const fab = document.getElementById('filter-button');
-  const dialog = document.getElementById('filter-dialog') as HTMLDialogElement;
-  const closeButton = dialog?.querySelector('.close-button');
-  const tagButtons = dialog?.querySelectorAll('.tag-button');
-  const clearButton = document.getElementById('clear-filters');
-  const recipeItems = document.querySelectorAll('#recipe-list > li');
+  import { initRecipeFilter } from '../../features/recipes/recipe-filter';
 
-  let selectedTags = new Set<string>();
-
-  function applyFilter() {
-    recipeItems.forEach((li) => {
-      if (selectedTags.size === 0) {
-        li.classList.remove('hidden');
-        return;
-      }
-      let itemTags = (li as HTMLElement).dataset.tags?.split(';') ?? [];
-      let matches = itemTags.some((tag) => selectedTags.has(tag));
-      li.classList.toggle('hidden', !matches);
-    });
-
-    if (clearButton) {
-      clearButton.hidden = selectedTags.size === 0;
-    }
-
-    fab?.classList.toggle('has-active-filter', selectedTags.size > 0);
-  }
-
-  tagButtons?.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      let tag = (btn as HTMLElement).dataset.tag!;
-      if (selectedTags.has(tag)) {
-        selectedTags.delete(tag);
-        btn.setAttribute('aria-pressed', 'false');
-      } else {
-        selectedTags.add(tag);
-        btn.setAttribute('aria-pressed', 'true');
-      }
-      applyFilter();
-    });
-  });
-
-  clearButton?.addEventListener('click', () => {
-    selectedTags.clear();
-    tagButtons?.forEach((btn) => btn.setAttribute('aria-pressed', 'false'));
-    applyFilter();
-  });
-
-  fab?.addEventListener('click', () => {
-    dialog?.showModal();
-  });
-
-  closeButton?.addEventListener('click', () => {
-    dialog?.close();
-  });
-
-  dialog?.addEventListener('click', (e) => {
-    if (e.target === dialog) {
-      dialog.close();
-    }
+  initRecipeFilter({
+    fabId: 'filter-button',
+    dialogId: 'filter-dialog',
+    recipeListId: 'recipe-list',
   });
 </script>
 
@@ -126,36 +67,6 @@ const dialogId = 'filter-dialog';
 
     ul > li {
         margin: var(--spacing-md) 0;
-    }
-
-    .fab {
-        position: fixed;
-        bottom: 1.5rem;
-        right: 1.5rem;
-        width: 56px;
-        height: 56px;
-        border-radius: 50%;
-        border: none;
-        background-color: var(--surface-color);
-        color: var(--surface-text-color);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        z-index: 5;
-    }
-
-    .fab.has-active-filter::after {
-        content: '';
-        position: absolute;
-        top: 2px;
-        right: 2px;
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background-color: var(--black);
-        border: 2px solid var(--surface-color);
     }
 
     ul > li.hidden {

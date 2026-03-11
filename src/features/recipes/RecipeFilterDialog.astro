@@ -13,13 +13,16 @@ let sortedTags = [...availableTags].sort((a: string, b: string) => a.localeCompa
     </button>
   </div>
   <div class="dialog-body">
-    <input
-      type="search"
-      id="recipe-search"
-      class="search-input"
-      placeholder="Sök recept…"
-      autocomplete="off"
-    />
+    <form method="dialog">
+      <input
+        type="search"
+        id="recipe-search"
+        class="search-input"
+        placeholder="Sök recept…"
+        autocomplete="off"
+        enterkeyhint="search"
+      />
+    </form>
     <div class="tags-container" id="filter-tags">
       {sortedTags.map((tag: string) => (
         <button class="tag-button" data-tag={tag} type="button">{tag}</button>

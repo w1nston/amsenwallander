@@ -61,6 +61,7 @@ export function initRecipeFilter({ fabId, dialogId, recipeListId }: RecipeFilter
         searchInput.value = '';
     }
     applyFilter();
+    dialog?.close();
   });
 
   fab?.addEventListener('click', () => {

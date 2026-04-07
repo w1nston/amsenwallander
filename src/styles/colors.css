@@ -16,9 +16,9 @@ html[data-theme="dark"] {
   --bg-color: #1e1e1e;
   --text-color: #e8e0d8;
   --link-color: var(--text-color);
-  --surface-color: #b53a2e;
-  --surface-text-color: #f5f0eb;
-  --surface-border: #993127;
+  --surface-color: #ff4136;
+  --surface-text-color: #fff;
+  --surface-border: #cc3329;
   --secondary-surface-color: #2a2520;
   --secondary-surface-text-color: #d4a0b0;
   --input-background: #352f2b;
@@ -31,9 +31,9 @@ html[data-theme="dark"] {
     --bg-color: #1e1e1e;
     --text-color: #e8e0d8;
     --link-color: var(--text-color);
-    --surface-color: #b53a2e;
-    --surface-text-color: #f5f0eb;
-    --surface-border: #993127;
+    --surface-color: #ff4136;
+    --surface-text-color: #fff;
+    --surface-border: #cc3329;
     --secondary-surface-color: #2a2520;
     --secondary-surface-text-color: #d4a0b0;
     --input-background: #352f2b;

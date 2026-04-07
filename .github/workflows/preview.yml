@@ -39,15 +39,22 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const url = '${{ steps.deploy.outputs.deployment-url }}';
-            if (!url) return;
-            const body = `Preview deployment: ${url}`;
+            const output = `${{ steps.deploy.outputs.command-output }}`;
+            const urlMatch = output.match(/https:\/\/[a-z0-9-]+\.amsenwallander\.pages\.dev/);
+            const deploymentUrl = '${{ steps.deploy.outputs.deployment-url }}';
+            const url = deploymentUrl || (urlMatch && urlMatch[0]) || '';
+            if (!url) {
+              console.log('No preview URL found in deployment output');
+              return;
+            }
+            const marker = '<!-- cloudflare-preview -->';
+            const body = `${marker}\nPreview deployment: ${url}`;
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
             });
-            const existing = comments.find(c => c.body?.startsWith('Preview deployment:'));
+            const existing = comments.find(c => c.body?.includes(marker));
             if (existing) {
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,

@@ -7,6 +7,7 @@
   --surface-border: #ff6347;
   --secondary-surface-color: beige;
   --secondary-surface-text-color: #85144b;
+  --input-background: #fff;
   --black: #333;
   --white: #fff;
 }
@@ -20,6 +21,7 @@ html[data-theme="dark"] {
   --surface-border: #993127;
   --secondary-surface-color: #2a2520;
   --secondary-surface-text-color: #d4a0b0;
+  --input-background: #352f2b;
   --black: #555;
   --white: #f5f0eb;
 }
@@ -34,6 +36,7 @@ html[data-theme="dark"] {
     --surface-border: #993127;
     --secondary-surface-color: #2a2520;
     --secondary-surface-text-color: #d4a0b0;
+    --input-background: #352f2b;
     --black: #555;
     --white: #f5f0eb;
   }

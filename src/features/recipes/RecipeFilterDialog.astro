@@ -40,8 +40,10 @@ let sortedTags = [...availableTags].sort((a: string, b: string) => a.localeCompa
     padding: 0;
     width: 100%;
     max-width: 100%;
-    max-height: 80vh;
-    margin: auto 0 0 0;
+    max-height: 80dvh;
+    position: fixed;
+    bottom: 0;
+    margin: 0;
     border-radius: var(--spacing-md) var(--spacing-md) 0 0;
     overflow-y: auto;
   }
@@ -90,7 +92,7 @@ let sortedTags = [...availableTags].sort((a: string, b: string) => a.localeCompa
     min-height: 48px;
     border: var(--normal) solid var(--secondary-surface-text-color);
     border-radius: 24px;
-    background: none;
+    background-color: var(--input-background);
     color: var(--secondary-surface-text-color);
     font-size: 0.9375rem;
     margin-bottom: var(--spacing-md);
@@ -141,7 +143,11 @@ let sortedTags = [...availableTags].sort((a: string, b: string) => a.localeCompa
   @media (min-width: 500px) {
     dialog {
       max-width: 464px;
-      margin: auto;
+      position: fixed;
+      bottom: auto;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
       border-radius: var(--spacing-md);
     }
   }

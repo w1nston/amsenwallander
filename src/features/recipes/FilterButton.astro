@@ -28,12 +28,12 @@ let { id } = Astro.props;
   }
 
   :global(html[data-theme="dark"]) .fab {
-    border: var(--normal) solid var(--text-color);
+    border: var(--normal) solid var(--surface-text-color);
   }
 
   @media (prefers-color-scheme: dark) {
     :global(html:not([data-theme])) .fab {
-      border: var(--normal) solid var(--text-color);
+      border: var(--normal) solid var(--surface-text-color);
     }
   }
 

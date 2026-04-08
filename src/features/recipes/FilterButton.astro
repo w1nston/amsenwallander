@@ -27,6 +27,16 @@ let { id } = Astro.props;
     z-index: 5;
   }
 
+  :global(html[data-theme="dark"]) .fab {
+    border: var(--normal) solid var(--text-color);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(html:not([data-theme])) .fab {
+      border: var(--normal) solid var(--text-color);
+    }
+  }
+
   .fab.has-active-filter::after {
     content: '';
     position: absolute;

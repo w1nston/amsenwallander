@@ -53,11 +53,21 @@ const { variant } = Astro.props;
 		width: 40px;
 		height: 40px;
 		border-radius: 50%;
-		border: var(--normal) solid var(--text-color);
-		background-color: var(--secondary-surface-color);
+		border: none;
+		background-color: #fff;
 		color: var(--text-color);
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 		z-index: 5;
+	}
+
+	:global(html[data-theme="dark"]) .theme-toggle.fab {
+		background-color: var(--secondary-surface-color);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		:global(html:not([data-theme])) .theme-toggle.fab {
+			background-color: var(--secondary-surface-color);
+		}
 	}
 
 	@media (min-width: 500px) {

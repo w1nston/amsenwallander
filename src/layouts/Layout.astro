@@ -39,7 +39,17 @@ import ThemeToggle from '../features/navigation/ThemeToggle.astro';
   .spacing {
       padding-top: 5rem;
   }
-	
+
+  body {
+      padding-bottom: 3.75rem;
+  }
+
+  @media (min-width: 500px) {
+      body {
+          padding-bottom: 0;
+      }
+  }
+
 	.no-scroll {
 		overflow: hidden;
 	}

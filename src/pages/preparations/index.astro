@@ -9,10 +9,10 @@ let allPreparations = await getCollection('preparations');
   <section>
     <h1>Förberedelser</h1>
 
-    <ul>
+    <ul class="prep-list">
       {allPreparations.map((preparation) => (
         <li>
-          <a href={`/preparations/${preparation.data.slug}`}>{preparation.data.title}</a>
+          <a class="prep-link" href={`/preparations/${preparation.data.slug}`}>{preparation.data.title}</a>
         </li>
       ))}
     </ul>
@@ -22,5 +22,16 @@ let allPreparations = await getCollection('preparations');
 <style>
     section {
         padding: 1rem;
+    }
+
+    .prep-list {
+        gap: var(--spacing-lg);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .prep-link {
+        color: var(--secondary-surface-text-color);
+        font-size: 1.625rem;
     }
 </style>

@@ -1,7 +1,7 @@
 ---
 title: Romrussinglass
 slug: romrussinglass
-tags: [Efterrätt]
+tags: [Efterrätt, Glass]
 ---
 
 ## Ingredienser

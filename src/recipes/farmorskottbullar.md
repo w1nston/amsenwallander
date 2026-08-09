@@ -8,14 +8,18 @@ tags: [Middag]
 
 * 500 g blandfärs
 * 3/4 dl havregryn
-* 1 1/2 dl grädde
+* 1 1/2 dl mjölk
 * 1 tsk salt
 * 2 krm peppar
-* 2 msk stekt gul lök
+* 2 msk gul lök
 
 ## Instruktioner
 
-Blanda allt i en bunke, och se till att provstek lite för att se så salt och pepparmängderna blir bra. Rulla sedan köttbullarna och antingen stek, eller laga dem i ugnen.
+Hacka löken någorlunda fint, blanda ihop med mjölken och havregrynen, låt stå och dra en liten stund.
+
+När havregrynen fått svälla en stund, mixa det så slätt som möjligt.
+
+Blanda färsen med saltm peppar och mjölkblandingen i en bunke, och se till att provstek lite för att se så salt och pepparmängderna blir bra. Rulla sedan köttbullarna och antingen stek, eller laga dem i ugnen.
 
 För tillagning i ugn (väldigt smidigt) sätt ugnen på 250˚C och placera köttbullarna i en långpanna.
 

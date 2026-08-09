@@ -33,4 +33,4 @@ Grädda i nedre delen av ugnen i ca 40 minuter. Känn med sticka om den är klar
 ## Förslag till variatoner
 
 * Prinsesstårta
-* Citronsockerkaka
+* Citronsockerkaka (byt ut mjölken)

@@ -18,7 +18,16 @@ let preparations = defineCollection({
 	})
 });
 
+let drinks = defineCollection({
+    loader: glob({ pattern: '**/*.md', base: './src/drinks' }),
+    schema: z.object({
+        title: z.string(),
+        slug: z.string(),
+    })
+});
+
 export let collections = {
+    drinks,
+	preparations,
 	recipes,
-	preparations
 }

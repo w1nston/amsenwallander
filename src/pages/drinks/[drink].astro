@@ -1,0 +1,34 @@
+---
+import { getEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	let allDrinks = await getCollection('drinks');
+	return allDrinks.map((drink) => ({
+		params: { drink: drink.data.slug },
+	}));
+}
+
+let { drink } = Astro.params;
+let drinkEntry = await getEntry('drinks', drink);
+
+if (!drinkEntry) {
+	throw new Error(`Drink not found: ${drink}`);
+}
+
+let { Content } = await render(drinkEntry);
+---
+
+<Layout>
+    <section>
+        <h1>{drinkEntry.data.title}</h1>
+        <Content />
+    </section>
+</Layout>
+
+<style>
+    section {
+        padding: 1rem;
+    }
+</style>
+

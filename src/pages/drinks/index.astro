@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+let allDrinks = await getCollection('drinks');
+---
+
+<Layout>
+  <section>
+    <h1>Drinkar</h1>
+
+    <ul class="prep-list">
+      {allDrinks.map((drink) => (
+        <li>
+          <a class="prep-link" href={`/drinks/${drink.data.slug}`}>{drink.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+    section {
+        padding: 1rem;
+    }
+
+    .prep-list {
+        gap: var(--spacing-lg);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .prep-link {
+        color: var(--secondary-surface-text-color);
+        font-size: 1.625rem;
+    }
+</style>

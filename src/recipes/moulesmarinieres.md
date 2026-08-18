@@ -1,6 +1,7 @@
 ---
 title: Moules marinières
 slug: moulesmarinieres
+tags: [Middag]
 ---
 
 ## Ingredienser

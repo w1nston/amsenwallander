@@ -1,6 +1,7 @@
 ---
 title: Rödvinsbrässerade oxkinder
 slug: rodvinsbrasseradeoxkinder
+tags: [Middag]
 ---
 
 ## Ingredienser
